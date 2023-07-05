@@ -62,6 +62,8 @@ return require('packer').startup(function(use)
     vim.cmd('colorscheme oxocarbon')
     use { "sainnhe/sonokai", as = "sonokai" }
     vim.cmd('colorscheme sonokai')
+    use { "fcpg/vim-fahrenheit", as = "fahrenheit" }
+    vim.cmd('colorscheme fahrenheit')
 
     -- Packages
     use {
