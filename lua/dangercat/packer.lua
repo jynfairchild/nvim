@@ -60,10 +60,10 @@ return require('packer').startup(function(use)
     vim.cmd('colorscheme rose-pine')
     use({ 'nyoom-engineering/oxocarbon.nvim', as = 'oxocarbon' })
     vim.cmd('colorscheme oxocarbon')
-    use { "sainnhe/sonokai", as = "sonokai" }
-    vim.cmd('colorscheme sonokai')
     use { "fcpg/vim-fahrenheit", as = "fahrenheit" }
     vim.cmd('colorscheme fahrenheit')
+    use { "sainnhe/sonokai", as = "sonokai" }
+    vim.cmd('colorscheme sonokai')
 
     -- Packages
     use {
