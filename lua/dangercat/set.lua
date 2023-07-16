@@ -2,7 +2,6 @@
 vim.opt.nu = true
 vim.opt.relativenumber = true
 vim.opt.wrap = false
-
 -- extra undo (10k undo)
 vim.opt.swapfile = false
 vim.opt.backup = false

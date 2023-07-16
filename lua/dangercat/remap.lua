@@ -45,3 +45,6 @@ vim.keymap.set("n", "<leader>tv", function() require("nvterm.terminal").toggle('
 vim.keymap.set("n", "<leader>sv", ":vsp<CR>")
 vim.keymap.set("n", "<leader>sh", ":sp<CR>")
 
+-- python
+vim.keymap.set("n", "<C-\\>", ":!python3 %<CR>", { silent = true })
+

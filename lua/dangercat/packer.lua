@@ -7,6 +7,7 @@ return require('packer').startup(function(use)
     -- Packer can manage itself
     use 'wbthomason/packer.nvim'
 
+
     -- Goat Packages
     use {
         'nvim-telescope/telescope.nvim', tag = '0.1.1',
@@ -38,6 +39,20 @@ return require('packer').startup(function(use)
         }
     }
     use {
+        'hrsh7th/nvim-cmp',
+        requires = { 'L3MON4D3/LuaSnip' },
+        { 'saadparwaiz1/cmp_luasnip' },
+        { 'neovim/nvim-lspconfig' },
+        { 'hrsh7th/cmp-nvim-lsp' },
+        { 'hrsh7th/cmp-buffer' },
+        { 'hrsh7th/cmp-path' },
+        { 'hrsh7th/cmp-cmdline' },
+        { 'hrsh7th/cmp-vsnip' },
+        config = function()
+            require("cmd").setup()
+        end
+    }
+    use {
         'nvim-tree/nvim-tree.lua',
         requires = {
             'nvim-tree/nvim-web-devicons', -- optional
@@ -51,19 +66,32 @@ return require('packer').startup(function(use)
             require("which-key").setup()
         end
     }
+
+
     -- Tabbar
     use 'lewis6991/gitsigns.nvim' -- OPTIONAL: for git status
     use 'romgrk/barbar.nvim'
 
+
     -- Colorschemes
     use({ 'rose-pine/neovim', as = 'rose-pine' })
     vim.cmd('colorscheme rose-pine')
+
     use({ 'nyoom-engineering/oxocarbon.nvim', as = 'oxocarbon' })
     vim.cmd('colorscheme oxocarbon')
+
     use { "fcpg/vim-fahrenheit", as = "fahrenheit" }
     vim.cmd('colorscheme fahrenheit')
+
     use { "sainnhe/sonokai", as = "sonokai" }
     vim.cmd('colorscheme sonokai')
+
+    use { "navarasu/onedark.nvim", as = "onedark",
+        config = function()
+            require('onedark').setup()
+        end
+    }
+    vim.cmd('colorscheme onedark')
 
     -- Packages
     use {
@@ -76,7 +104,7 @@ return require('packer').startup(function(use)
         'nvim-lualine/lualine.nvim',
         requires = { 'nvim-tree/nvim-web-devicons', opt = true },
         config = function()
-            require('lualine').setup {}
+            require('lualine').setup()
         end
     }
     use {
@@ -92,4 +120,9 @@ return require('packer').startup(function(use)
             require('todo-comments').setup {}
         end
     }
+
+    -- trash taste
+    use { "lukas-reineke/indent-blankline.nvim" }
+    use { 'rktjmp/lush.nvim' }
+
 end)
