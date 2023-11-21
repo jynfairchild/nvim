@@ -86,12 +86,18 @@ return require('packer').startup(function(use)
     use { "sainnhe/sonokai", as = "sonokai" }
     vim.cmd('colorscheme sonokai')
 
+
     use { "navarasu/onedark.nvim", as = "onedark",
         config = function()
             require('onedark').setup()
         end
     }
     vim.cmd('colorscheme onedark')
+
+
+    -- Background transparent
+    use ('xiyaowong/transparent.nvim')
+
 
     -- Packages
     use {
