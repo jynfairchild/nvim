@@ -40,6 +40,8 @@ vim.keymap.set("n", "<C-j>", "<C-w><Down>")
 -- terminal
 vim.keymap.set("n", "<leader>th", function() require("nvterm.terminal").toggle('horizontal') end)
 vim.keymap.set("n", "<leader>tv", function() require("nvterm.terminal").toggle('vertical') end)
+vim.keymap.set("n", "<f5>", "<C-w><Right><C-w><Down><Up>")
+vim.keymap.set("t", "<f6>", "<C-\\><C-n><C-w><Left>")
 
 -- split
 vim.keymap.set("n", "<leader>sv", ":vsp<CR>")
@@ -47,4 +49,5 @@ vim.keymap.set("n", "<leader>sh", ":sp<CR>")
 
 -- python
 vim.keymap.set("n", "<C-\\>", ":!python3 %<CR>", { silent = true })
+
 
