@@ -38,6 +38,10 @@ return require('packer').startup(function(use)
             { 'L3MON4D3/LuaSnip' },     -- Required
         }
     }
+
+    -- juypter notbooks
+    use { 'dccsillag/magma-nvim', run = ':UpdateRemotePlugins' }
+
     use {
         'hrsh7th/nvim-cmp',
         requires = { 'L3MON4D3/LuaSnip' },
