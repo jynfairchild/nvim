@@ -58,10 +58,9 @@ signs = true, -- show icons in the signs column
   },
 }
 
--- TODO: here
+-- TODO here
 -- FIXME: here
 -- NEED: here
 -- UPDATE: here
 -- OUTLINE: here
-
 
