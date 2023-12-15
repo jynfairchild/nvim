@@ -1,1 +1,11 @@
+
+# ds_store
 .DS_Store
+/lua/dangercat/.DS_Store
+/lua/.DS_Store
+/plugin/.DS_Store
+/after/.DS_Store
+/after/plugin/.DS_Store
+
+# packer complied
+/plugin/packer_compiled.lua
