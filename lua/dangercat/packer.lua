@@ -2,18 +2,15 @@
 
 -- Only required if you have packer configured as `opt`
 vim.cmd [[packadd packer.nvim]]
+print('packer loaded')
 
 return require('packer').startup(function(use)
     -- Packer can manage itself
     use 'wbthomason/packer.nvim'
 
-
-    -- Goat Packages
-    use {
-        'nvim-telescope/telescope.nvim', tag = '0.1.1',
-        -- or                            , branch = '0.1.x',
-        requires = { { 'nvim-lua/plenary.nvim' } }
-    }
+    -------------------
+    -- Goat Packages --
+    -------------------
     use('nvim-treesitter/nvim-treesitter', { run = ':TSUpdate' })
     use('nvim-treesitter/playground')
     use('mbbill/undotree')
@@ -38,6 +35,13 @@ return require('packer').startup(function(use)
             { 'L3MON4D3/LuaSnip' },     -- Required
         }
     }
+
+    -- use {
+    --     'hedyhli/outline.nvim',
+    --     config = function()
+    --         require("outline").setup()
+    --     end
+    -- }
 
     -- juypter notbooks
     use { 'dccsillag/magma-nvim', run = ':UpdateRemotePlugins' }
@@ -77,30 +81,8 @@ return require('packer').startup(function(use)
     use 'romgrk/barbar.nvim'
 
 
-    -- Colorschemes
-    use({ 'rose-pine/neovim', as = 'rose-pine' })
-    vim.cmd('colorscheme rose-pine')
-
-    use({ 'nyoom-engineering/oxocarbon.nvim', as = 'oxocarbon' })
-    vim.cmd('colorscheme oxocarbon')
-
-    use { "fcpg/vim-fahrenheit", as = "fahrenheit" }
-    vim.cmd('colorscheme fahrenheit')
-
-    use { "sainnhe/sonokai", as = "sonokai" }
-    vim.cmd('colorscheme sonokai')
-
-
-    use { "navarasu/onedark.nvim", as = "onedark",
-        config = function()
-            require('onedark').setup()
-        end
-    }
-    vim.cmd('colorscheme onedark')
-
-
     -- Background transparent
-    use ('xiyaowong/transparent.nvim')
+    use('xiyaowong/transparent.nvim')
 
 
     -- Packages
@@ -134,5 +116,41 @@ return require('packer').startup(function(use)
     -- trash taste
     use { "lukas-reineke/indent-blankline.nvim" }
     use { 'rktjmp/lush.nvim' }
+
+    -- Colorschemes
+    use({ 'rose-pine/neovim', as = 'rose-pine' })
+    vim.cmd('colorscheme rose-pine')
+
+    use({ 'nyoom-engineering/oxocarbon.nvim', as = 'oxocarbon' })
+    vim.cmd('colorscheme oxocarbon')
+
+    use { "fcpg/vim-fahrenheit", as = "fahrenheit" }
+    vim.cmd('colorscheme fahrenheit')
+
+    use { "sainnhe/sonokai", as = "sonokai" }
+    vim.cmd('colorscheme sonokai')
+
+    use { "navarasu/onedark.nvim", as = "onedark",
+        config = function()
+            require('onedark').setup()
+        end
+    }
+    vim.cmd('colorscheme onedark')
+
+
+    use { "jynfairchild/twodark.nvim", as = "twodark",
+        config = function()
+            require('twodark').setup()
+        end
+    }
+    vim.cmd('colorscheme twodark')
+
+
+    use {
+        'nvim-telescope/telescope.nvim', tag = '0.1.6',
+        -- or                            , branch = '0.1.x',
+        requires = { { 'nvim-lua/plenary.nvim' } }
+    }
+
 
 end)

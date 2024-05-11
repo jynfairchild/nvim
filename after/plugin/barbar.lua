@@ -33,7 +33,7 @@ require'barbar'.setup {
     button = '',
     -- Enables / disables diagnostic symbols
     diagnostics = {
-      [vim.diagnostic.severity.ERROR] = {enabled = true, icon = 'ﬀ'},
+      [vim.diagnostic.severity.ERROR] = {enabled = false, icon = 'ﬀ'},
       [vim.diagnostic.severity.WARN] = {enabled = false},
       [vim.diagnostic.severity.INFO] = {enabled = false},
       [vim.diagnostic.severity.HINT] = {enabled = true},
@@ -46,7 +46,7 @@ require'barbar'.setup {
     filetype = {
       -- Sets the icon's highlight group.
       -- If false, will use nvim-web-devicons colors
-      custom_colors = false,
+      custom_colors = true,
 
       -- Requires `nvim-web-devicons` if `true`
       enabled = true,

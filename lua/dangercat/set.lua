@@ -16,10 +16,10 @@ vim.opt.incsearch = true
 vim.opt.scrolloff = 12
 
 -- indents
+vim.opt.expandtab = true
+vim.opt.shiftwidth = 4
 vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
-vim.opt.shiftwidth = 4
-vim.opt.expandtab = true
 vim.opt.smartindent = true
 
 vim.opt.termguicolors = true
@@ -28,3 +28,11 @@ vim.opt.updatetime = 50
 vim.g.mapleader = " "
 
 vim.g.copilot_assume_mapped = true
+vim.opt.fillchars = {eob = " "}
+
+-- block cursor
+vim.opt.guicursor = "n:block"
+
+-- command line two lines, gets rid of "Press ENTER..."
+vim.opt.cmdheight = 2
+

@@ -13,6 +13,7 @@ wk.register({
   f = {
     { "File" },
     f = { "Find Files" }, -- just a label. don't create any mapping
+    g = { "Grep Find" }, -- grep
   },
 
   t = {
