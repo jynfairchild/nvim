@@ -30,8 +30,18 @@ vim.g.mapleader = " "
 vim.g.copilot_assume_mapped = true
 vim.opt.fillchars = {eob = " "}
 
--- block cursor
-vim.opt.guicursor = "n:block"
+-- Setting guicursor for different modes
+vim.opt.guicursor = {
+  -- Normal mode
+  "n-v-c:block-Cursor/lCursor",   -- block cursor with default color
+  -- Insert mode
+  "i-ci-ve:ver20-CursorInsert/lCursorInsert",  -- vertical bar cursor with different color
+  -- Replace mode
+  "r-cr:hor20-CursorReplace/lCursorReplace",   -- horizontal bar cursor
+  -- Command mode
+  "sm:block-CursorCommand/lCursorCommand",     -- block cursor for command mode
+}
+
 
 -- command line two lines, gets rid of "Press ENTER..."
 vim.opt.cmdheight = 2

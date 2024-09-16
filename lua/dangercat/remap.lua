@@ -74,6 +74,11 @@ vim.keymap.set('n', '<leader>;r', function()
     vim.cmd('luafile ~/.config/nvim/lua/dangercat/remap.lua')
 end, { noremap = true, silent = false, desc = "reload remaps" })
 
+-- Mapping to run reload sets
+vim.keymap.set('n', '<leader>;s', function()
+    vim.cmd('luafile ~/.config/nvim/lua/dangercat/set.lua')
+end, { noremap = true, silent = false, desc = "reload sets" })
+
 -- colorscheme testing
 vim.keymap.set('n', '<leader>;c', function()
     vim.cmd('colorscheme twodark')
@@ -91,3 +96,5 @@ end, { noremap = true, silent = false, desc = "change colorscheme" })
 --   pattern = "remaps.lua",
 --   command = "luafile ~/.config/nvim/remaps.lua"
 -- })
+
+
