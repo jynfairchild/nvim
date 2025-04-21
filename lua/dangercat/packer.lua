@@ -36,6 +36,16 @@ return require('packer').startup(function(use)
         }
     }
 
+    use {
+        'greggh/claude-code.nvim',
+        requires = {
+            'nvim-lua/plenary.nvim', -- Required for git operations
+        },
+        config = function()
+            require('claude-code').setup()
+        end
+    }
+
     -- use {
     --     'hedyhli/outline.nvim',
     --     config = function()

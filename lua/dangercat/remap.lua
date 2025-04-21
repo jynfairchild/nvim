@@ -44,6 +44,36 @@ vim.keymap.set("n", "<C-j>", "<C-w><Down>")
 -- terminal
 vim.keymap.set("n", "<leader>th", function() require("nvterm.terminal").toggle('horizontal') end)
 vim.keymap.set("n", "<leader>tv", function() require("nvterm.terminal").toggle('vertical') end)
+
+vim.keymap.set("n", "<leader>ty", function()
+  -- Open horizontal terminal
+  require("nvterm.terminal").toggle('horizontal')
+  
+  -- Wait briefly for terminal to open and then navigate out
+  vim.defer_fn(function()
+    -- This is the equivalent of pressing Ctrl-w then k
+    vim.cmd("wincmd k")
+    
+    -- Open vertical terminal
+    vim.defer_fn(function()
+      require("nvterm.terminal").toggle('vertical')
+      
+      -- Navigate out and then close the buffer
+      vim.defer_fn(function()
+        -- This is the equivalent of pressing Ctrl-w then h
+        vim.cmd("wincmd h")
+        vim.cmd("q")
+        
+        -- Navigate back down to the bottom terminal
+        vim.defer_fn(function()
+          -- This is the equivalent of pressing Ctrl-w then j
+          vim.cmd("wincmd j")
+        end, 100)
+      end, 100)
+    end, 100)
+  end, 100)
+end)
+
 vim.keymap.set("n", "<f6>", "<C-w><Right><C-w><Down><Up>")
 vim.keymap.set("t", "<f5>", "<C-\\><C-n><C-w><Left>")
 
@@ -83,6 +113,11 @@ end, { noremap = true, silent = false, desc = "reload sets" })
 vim.keymap.set('n', '<leader>;c', function()
     vim.cmd('colorscheme twodark')
 end, { noremap = true, silent = false, desc = "change colorscheme" })
+
+-- ClaudeCode
+vim.keymap.set('n', '<leader>cc', ':ClaudeCode toggle<CR>', { silent = true })
+vim.keymap.set('n', '<leader>co', ':ClaudeCode open<CR>', { silent = true })
+vim.keymap.set('n', '<leader>cx', ':ClaudeCode close<CR>', { silent = true })
 
 
 --Automatic Reload on File Change
