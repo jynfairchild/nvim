@@ -2,6 +2,7 @@
 vim.opt.nu = true
 vim.opt.relativenumber = true
 vim.opt.wrap = false
+
 -- extra undo (10k undo)
 vim.opt.swapfile = false
 vim.opt.backup = false
@@ -29,6 +30,9 @@ vim.g.mapleader = " "
 
 vim.g.copilot_assume_mapped = true
 vim.opt.fillchars = {eob = " "}
+
+-- comments
+vim.opt.formatoptions:remove({ 'c', 'r', 'o' })
 
 -- Setting guicursor for different modes
 vim.opt.guicursor = {
