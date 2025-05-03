@@ -2,6 +2,7 @@
 
 -- Add this setup configuration to change the style
 require("which-key").setup({
+    triggers_nowait = { "[", "]" },
     win = {  -- Use 'win' instead of 'window'
         no_overlap = true,
         title = true,
@@ -48,8 +49,8 @@ wk.add({
     { "<leader>sh",  desc = "Horizontal" },
     { "<leader>sv",  desc = "Verticle" },
 
-    -- Terminal
-    { "<leader>t",   desc = "Terminal" },
+    -- Terminal/Toggle
+    { "<leader>t",   desc = "Terminal/Toggle" },
     { "<leader>th",  desc = "Horizontal" },
     { "<leader>tv",  desc = "Verticle" },
 

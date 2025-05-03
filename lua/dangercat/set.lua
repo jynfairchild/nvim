@@ -24,8 +24,8 @@ vim.opt.softtabstop = 4
 vim.opt.smartindent = true
 
 vim.opt.termguicolors = true
-
 vim.opt.updatetime = 50
+vim.opt.timeoutlen = 10
 vim.g.mapleader = " "
 
 vim.g.copilot_assume_mapped = true

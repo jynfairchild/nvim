@@ -2,11 +2,13 @@
 vim.keymap.set("n", "<C-d>", "<C-d>zz")
 vim.keymap.set("n", "<C-u>", "<C-u>zz")
 vim.keymap.set("n", "=", "12<C-y>")
-vim.keymap.set("n", "-", "-12<C-e>")
+vim.keymap.set("n", "-", "12<C-e>")
 
 -- move to the front and back of a line
-vim.keymap.set('n', '0', '$')
-vim.keymap.set('n', '9', '0')
+vim.keymap.set('n', ']', '$')
+vim.keymap.set('n', '[', '0')
+vim.keymap.set('v', ']', '$')
+vim.keymap.set('v', '[', '0')
 
 -- when searching go to the next search result
 vim.keymap.set("n", "n", "nzzzv")
@@ -83,6 +85,16 @@ end)
 vim.keymap.set("n", "<f6>", "<C-w><Right><C-w><Down><Up>")
 vim.keymap.set("t", "<f5>", "<C-\\><C-n><C-w><Left>")
 
+-- Window resize in normal mode with incremental changes
+vim.keymap.set("t", "<kMinus>", "<C-\\><C-n>:resize -8<CR>i")
+vim.keymap.set("t", "<kPlus>", "<C-\\><C-n>:resize +8<CR>i")
+vim.keymap.set("t", "<k7>", "<C-\\><C-n>:vertical resize +10<CR>i")
+vim.keymap.set("t", "<k8>", "<C-\\><C-n>:vertical resize -10<CR>i")
+vim.keymap.set("n", "<k7>", ":vertical resize -10<CR>")
+vim.keymap.set("n", "<k8>", ":vertical resize +10<CR>")
+vim.keymap.set("n", "<kMinus>", ":resize -8<CR>")
+vim.keymap.set("n", "<kPlus>", ":resize +8<CR>")
+
 -- split
 vim.keymap.set("n", "<leader>sv", ":vsp<CR>")
 vim.keymap.set("n", "<leader>sh", ":sp<CR>")
@@ -153,94 +165,25 @@ function _G.run_love2d()
 end
 
 -- Create keybinding for running Love2D (change to whatever key you prefer)
-vim.keymap.set('n', '<leader>]l', _G.run_love2d, { desc = "Run Love2D" })
+vim.keymap.set('n', '<leader>l', _G.run_love2d, { desc = "Run Love2D" })
 
-
--- Window sizes
-vim.api.nvim_create_user_command('SmartWindowWidths', function()
-
-    -- Count visible windows
-    local win_count = vim.fn.winnr('$')
-
-    -- Check if NvimTree is open
-    local has_nvim_tree = false
-    local nvim_tree_win = -1
-    -- Loop through all windows to find NvimTree
-    for i = 1, win_count do
-        vim.cmd(i .. 'wincmd w')
-        local buf = vim.fn.winbufnr(0)
-        local buf_name = vim.fn.bufname(buf)
-        if buf_name:match("NvimTree") then
-            has_nvim_tree = true
-            nvim_tree_win = i
-            break
-        end
-    end
-
-    local total_width = vim.o.columns
-
-    -- Different sizing based on whether NvimTree is open and window count
-    if win_count == 3 then
-        if has_nvim_tree then
-            vim.cmd(nvim_tree_win .. 'wincmd w')
-            vim.cmd('vertical resize ' .. math.floor(total_width * 0.1))
-
-            -- Find the non-tree windows
-            local other_windows = {}
-            for i = 1, win_count do
-                if i ~= nvim_tree_win then
-                    table.insert(other_windows, i)
-                end
-            end
-
-            vim.cmd(other_windows[1] .. 'wincmd w')
-            vim.cmd('vertical resize ' .. math.floor(total_width * 0.6))
-            print("Windows resized with NvimTree: 10% | 60% | 30%")
-            vim.cmd('2wincmd w')
-        else
-            vim.cmd('1wincmd w')
-            vim.cmd('vertical resize ' .. math.floor(total_width * 0.5))
-            vim.cmd('2wincmd w')
-            vim.cmd('vertical resize ' .. math.floor(total_width * 0.35))
-            print("Windows resized to 50% | 30% | 20%")
-            vim.cmd('1wincmd w')
-        end
-    elseif win_count == 4 then
-        if has_nvim_tree then
-            vim.cmd(nvim_tree_win .. 'wincmd w')
-            vim.cmd('vertical resize ' .. math.floor(total_width * 0.1))
-
-            -- Find the non-tree windows
-            local other_windows = {}
-            for i = 1, win_count do
-                if i ~= nvim_tree_win then
-                    table.insert(other_windows, i)
-                end
-            end
-
-            vim.cmd(other_windows[1] .. 'wincmd w')
-            vim.cmd('vertical resize ' .. math.floor(total_width * 0.5))
-            vim.cmd(other_windows[2] .. 'wincmd w')
-            vim.cmd('vertical resize ' .. math.floor(total_width * 0.25))
-            print("Windows resized with NvimTree: 10% | 50% | 25% | 15% ")
-            -- Return to original window
-            vim.cmd('2wincmd w')
-        else
-            vim.cmd('1wincmd w')
-            vim.cmd('vertical resize ' .. math.floor(total_width * 0.30))
-            vim.cmd('2wincmd w')
-            vim.cmd('vertical resize ' .. math.floor(total_width * 0.30))
-            vim.cmd('3wincmd w')
-            vim.cmd('vertical resize ' .. math.floor(total_width * 0.4))
-            print("Windows resized to 30% | 30% | 20% | 20% ")
-        end
-    else
-        print("Layout not supported. Window count: " .. win_count)
-    end
-end, {})
 
 -- Map the function to a key
 vim.api.nvim_set_keymap('n', '<leader>qw', ':SmartWindowWidths<CR>', { noremap = true, silent = true })
 
+-- Toggle gitsigns (git status in gutter)
+vim.keymap.set('n', '<leader>gt', function()
+    local current_buf = vim.api.nvim_get_current_buf()
+    local gitsigns = require('gitsigns')
+
+    -- Check if gitsigns is attached to the current buffer
+    if vim.b[current_buf].gitsigns_head then
+        -- Detach if attached
+        gitsigns.detach(current_buf)
+    else
+        -- Attach if detached
+        gitsigns.attach(current_buf)
+    end
+end, { noremap = true, silent = true, desc = "Git Toggle Signs" })
 
 
