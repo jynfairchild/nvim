@@ -1,5 +1,4 @@
 -- This file can be loaded by calling `lua require('plugins')` from your init.vim
-
 -- Only required if you have packer configured as `opt`
 vim.cmd [[packadd packer.nvim]]
 print('packer loaded')
@@ -13,17 +12,17 @@ return require('packer').startup(function(use)
     -----------------
 
     -- Simple plugins (single line)
-    use 'nvim-lua/plenary.nvim'         -- Required by many plugins
-    use 'nvim-tree/nvim-web-devicons'   -- Icons for various plugins
-    use 'mbbill/undotree'               -- Undo history visualizer
-    use 'tpope/vim-fugitive'            -- Git integration
-    use 'lewis6991/gitsigns.nvim'       -- Git status in gutter
-    use 'romgrk/barbar.nvim'            -- Buffer tabs
-    use 'goolord/alpha-nvim'            -- Dashboard
-    use 'xiyaowong/transparent.nvim'    -- Background transparency
-    use 'lukas-reineke/indent-blankline.nvim' -- Indentation guides
-    use 'rktjmp/lush.nvim'              -- Color scheme framework
-    use 'numToStr/FTerm.nvim'           -- Floating terminal
+    use 'nvim-lua/plenary.nvim'                -- Required by many plugins
+    use 'nvim-tree/nvim-web-devicons'          -- Icons for various plugins
+    use 'mbbill/undotree'                      -- Undo history visualizer
+    use 'tpope/vim-fugitive'                   -- Git integration
+    use 'lewis6991/gitsigns.nvim'              -- Git status in gutter
+    use 'romgrk/barbar.nvim'                   -- Buffer tabs
+    use 'goolord/alpha-nvim'                   -- Dashboard
+    use 'xiyaowong/transparent.nvim'           -- Background transparency
+    use 'lukas-reineke/indent-blankline.nvim'  -- Indentation guides
+    use 'rktjmp/lush.nvim'                     -- Color scheme framework
+    use 'numToStr/FTerm.nvim'                  -- Floating terminal
 
     -- Language and syntax
     use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}
@@ -72,7 +71,6 @@ return require('packer').startup(function(use)
         config = function()
             vim.o.timeout = true
             vim.o.timeoutlen = 150
-            require("which-key").setup()
         end
     }
 

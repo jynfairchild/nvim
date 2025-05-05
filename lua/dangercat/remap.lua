@@ -1,5 +1,8 @@
 -- vim.keymap.del("n", "<leader>t")
 
+-- save
+vim.keymap.set('n', '\\', ":w <CR>", { silent = true, })
+
 -- move half way up and down while also keeping stuff in the middle
 vim.keymap.set("n", "<C-d>", "<C-d>zz")
 vim.keymap.set("n", "<C-u>", "<C-u>zz")

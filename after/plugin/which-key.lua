@@ -1,7 +1,19 @@
 
+-- Force load which-key, even if it hasn't been loaded by packer yet
+vim.cmd[[packadd which-key.nvim]]
+
+-- Ensure which-key is loaded and initialized with proper settings
+local status_ok, which_key = pcall(require, "which-key")
+if not status_ok then
+    return
+end
+
+-- Basic timeout settings
+vim.o.timeout = true
+vim.o.timeoutlen = 150
 
 -- Add this setup configuration to change the style
-require("which-key").setup({
+which_key.setup{
     triggers_nowait = { "[", "]" },
     win = {  -- Use 'win' instead of 'window'
         no_overlap = true,
@@ -19,11 +31,11 @@ require("which-key").setup({
     },
     show_help = false,      -- Hide the help message at the bottom
     show_keys = false,
-})
+}
 
 
-local wk = require("which-key")
-wk.add({
+-- Use the existing which_key variable instead of creating a new one
+which_key.add({
 
     { "<leader>O",   desc = "New Line Above Insert" },
     { "<leader>o",   desc = "New Line Below Insert" },
@@ -31,7 +43,6 @@ wk.add({
     -- Run Lua ]
     { "<leader>]",   desc = "Run lua" },
     { "<leader>][",  desc = "Run File .lua" },
-    { "<leader>]\\", desc = "Run love ." },
     { "<leader>]]",  desc = "Run Visual Lines .lua" },
 
     -- Find
