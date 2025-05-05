@@ -29,7 +29,7 @@ vim.opt.timeoutlen = 10
 vim.g.mapleader = " "
 
 vim.g.copilot_assume_mapped = true
-vim.opt.fillchars = {eob = " "}
+vim.opt.fillchars = { eob = " " }
 
 -- comments
 vim.opt.formatoptions:remove({ 'c', 'r', 'o' })
@@ -37,16 +37,15 @@ vim.opt.formatoptions:remove({ 'c', 'r', 'o' })
 -- Setting guicursor for different modes
 vim.opt.guicursor = {
   -- Normal mode
-  "n-v-c:block-Cursor/lCursor",   -- block cursor with default color
+  "n-v-c:block-Cursor/lCursor",               -- block cursor with default color
   -- Insert mode
-  "i-ci-ve:ver20-CursorInsert/lCursorInsert",  -- vertical bar cursor with different color
+  "i-ci-ve:ver20-CursorInsert/lCursorInsert", -- vertical bar cursor with different color
   -- Replace mode
-  "r-cr:hor20-CursorReplace/lCursorReplace",   -- horizontal bar cursor
+  "r-cr:hor20-CursorReplace/lCursorReplace",  -- horizontal bar cursor
   -- Command mode
-  "sm:block-CursorCommand/lCursorCommand",     -- block cursor for command mode
+  "sm:block-CursorCommand/lCursorCommand",    -- block cursor for command mode
 }
 
 
 -- command line two lines, gets rid of "Press ENTER..."
 vim.opt.cmdheight = 2
-

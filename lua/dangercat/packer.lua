@@ -8,76 +8,67 @@ return require('packer').startup(function(use)
     -- Packer can manage itself
     use 'wbthomason/packer.nvim'
 
-    -------------------
-    -- Goat Packages --
-    -------------------
-    use('nvim-treesitter/nvim-treesitter', { run = ':TSUpdate' })
-    use('nvim-treesitter/playground')
-    use('mbbill/undotree')
-    use('tpope/vim-fugitive')
+    -----------------
+    -- Core Plugins --
+    -----------------
+
+    -- Simple plugins (single line)
+    use 'nvim-lua/plenary.nvim'         -- Required by many plugins
+    use 'nvim-tree/nvim-web-devicons'   -- Icons for various plugins
+    use 'mbbill/undotree'               -- Undo history visualizer
+    use 'tpope/vim-fugitive'            -- Git integration
+    use 'lewis6991/gitsigns.nvim'       -- Git status in gutter
+    use 'romgrk/barbar.nvim'            -- Buffer tabs
+    use 'goolord/alpha-nvim'            -- Dashboard
+    use 'xiyaowong/transparent.nvim'    -- Background transparency
+    use 'lukas-reineke/indent-blankline.nvim' -- Indentation guides
+    use 'rktjmp/lush.nvim'              -- Color scheme framework
+    use 'numToStr/FTerm.nvim'           -- Floating terminal
+
+    -- Language and syntax
+    use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}
+    use 'nvim-treesitter/playground'
+
+    -- LSP and completion
     use {
         'VonHeikemen/lsp-zero.nvim',
         branch = 'v2.x',
         requires = {
             -- LSP Support
-            { 'neovim/nvim-lspconfig' }, -- Required
-            {                            -- Optional
-                'williamboman/mason.nvim',
-                run = function()
-                    pcall(vim.cmd, 'MasonUpdate')
-                end,
-            },
-            { 'williamboman/mason-lspconfig.nvim' }, -- Optional
+            {'neovim/nvim-lspconfig'},
+            {'williamboman/mason.nvim', run = function() pcall(vim.cmd, 'MasonUpdate') end},
+            {'williamboman/mason-lspconfig.nvim'},
 
             -- Autocompletion
-            { 'hrsh7th/nvim-cmp' },     -- Required
-            { 'hrsh7th/cmp-nvim-lsp' }, -- Required
-            { 'L3MON4D3/LuaSnip' },     -- Required
+            {'hrsh7th/nvim-cmp'},
+            {'hrsh7th/cmp-nvim-lsp'},
+            {'L3MON4D3/LuaSnip'},
         }
     }
 
+    -- Fuzzy finder
+    use {
+        'nvim-telescope/telescope.nvim',
+        tag = '0.1.6',
+        requires = {{'nvim-lua/plenary.nvim'}}
+    }
+
+    -- AI assistance
     use {
         'greggh/claude-code.nvim',
-        requires = {
-            'nvim-lua/plenary.nvim', -- Required for git operations
-        },
-        config = function()
-            require('claude-code').setup()
-        end
+        requires = {'nvim-lua/plenary.nvim'},
+        config = function() require('claude-code').setup() end
     }
 
-    -- use {
-    --     'hedyhli/outline.nvim',
-    --     config = function()
-    --         require("outline").setup()
-    --     end
-    -- }
-
-    -- juypter notbooks
-    use { 'dccsillag/magma-nvim', run = ':UpdateRemotePlugins' }
-
-    use {
-        'hrsh7th/nvim-cmp',
-        requires = { 'L3MON4D3/LuaSnip' },
-        { 'saadparwaiz1/cmp_luasnip' },
-        { 'neovim/nvim-lspconfig' },
-        { 'hrsh7th/cmp-nvim-lsp' },
-        { 'hrsh7th/cmp-buffer' },
-        { 'hrsh7th/cmp-path' },
-        { 'hrsh7th/cmp-cmdline' },
-        { 'hrsh7th/cmp-vsnip' },
-        config = function()
-            require("cmd").setup()
-        end
-    }
+    -- File explorer
     use {
         'nvim-tree/nvim-tree.lua',
-        requires = {
-            'nvim-tree/nvim-web-devicons', -- optional
-        },
+        requires = {'nvim-tree/nvim-web-devicons'},
     }
+
+    -- Keybinding help
     use {
-        "folke/which-key.nvim",
+        'folke/which-key.nvim',
         config = function()
             vim.o.timeout = true
             vim.o.timeoutlen = 150
@@ -85,82 +76,76 @@ return require('packer').startup(function(use)
         end
     }
 
+    -- Code completion
+    use {
+        'hrsh7th/nvim-cmp',
+        requires = {
+            {'L3MON4D3/LuaSnip'},
+            {'saadparwaiz1/cmp_luasnip'},
+            {'neovim/nvim-lspconfig'},
+            {'hrsh7th/cmp-nvim-lsp'},
+            {'hrsh7th/cmp-buffer'},
+            {'hrsh7th/cmp-path'},
+            {'hrsh7th/cmp-cmdline'},
+            {'hrsh7th/cmp-vsnip'},
+        },
+        config = function() require("cmp").setup() end
+    }
 
-    -- Tabbar
-    use 'lewis6991/gitsigns.nvim' -- OPTIONAL: for git status
-    use 'romgrk/barbar.nvim'
-
-
-    -- Background transparent
-    use('xiyaowong/transparent.nvim')
-
-
-    -- Packages
+    -- Code commenting
     use {
         'numToStr/Comment.nvim',
-        config = function()
-            require('Comment').setup()
-        end
+        config = function() require('Comment').setup() end
     }
+
+    -- Status line
     use {
         'nvim-lualine/lualine.nvim',
-        requires = { 'nvim-tree/nvim-web-devicons', opt = true },
-        config = function()
-            require('lualine').setup()
-        end
+        requires = {'nvim-tree/nvim-web-devicons', opt = true},
+        config = function() require('lualine').setup() end
     }
+
+    -- Terminal
     use {
-        "NvChad/nvterm",
-        config = function()
-            require("nvterm").setup()
-        end,
+        'NvChad/nvterm',
+        config = function() require('nvterm').setup() end
     }
+
+    -- Todo comments highlighting
     use {
         'folke/todo-comments.nvim',
-        requires = { 'nvim-lua/plenary.nvim' },
-        config = function()
-            require('todo-comments').setup {}
-        end
+        requires = {'nvim-lua/plenary.nvim'},
+        config = function() require('todo-comments').setup {} end
     }
 
-    -- trash taste
-    use { "lukas-reineke/indent-blankline.nvim" }
-    use { 'rktjmp/lush.nvim' }
+    -- Jupyter notebook support
+    use {'dccsillag/magma-nvim', run = ':UpdateRemotePlugins'}
 
-    -- Colorschemes
-    use({ 'rose-pine/neovim', as = 'rose-pine' })
-    vim.cmd('colorscheme rose-pine')
+    ---------------------
+    -- Color Schemes --
+    ---------------------
 
-    use({ 'nyoom-engineering/oxocarbon.nvim', as = 'oxocarbon' })
-    vim.cmd('colorscheme oxocarbon')
-
-    use { "fcpg/vim-fahrenheit", as = "fahrenheit" }
-    vim.cmd('colorscheme fahrenheit')
-
-    use { "sainnhe/sonokai", as = "sonokai" }
-    vim.cmd('colorscheme sonokai')
-
-    use { "navarasu/onedark.nvim", as = "onedark",
-        config = function()
-            require('onedark').setup()
-        end
-    }
-    vim.cmd('colorscheme onedark')
-
-
-    use { "jynfairchild/twodark.nvim", as = "twodark",
-        config = function()
-            require('twodark').setup()
-        end
-    }
-    vim.cmd('colorscheme twodark')
-
+    -- Apply colorschemes in sequence (last one sticks)
+    use {'rose-pine/neovim', as = 'rose-pine'}
+    use {'nyoom-engineering/oxocarbon.nvim', as = 'oxocarbon'}
+    use {'fcpg/vim-fahrenheit', as = 'fahrenheit'}
+    use {'sainnhe/sonokai', as = 'sonokai'}
 
     use {
-        'nvim-telescope/telescope.nvim', tag = '0.1.6',
-        -- or                            , branch = '0.1.x',
-        requires = { { 'nvim-lua/plenary.nvim' } }
+        'navarasu/onedark.nvim',
+        as = 'onedark',
+        config = function() require('onedark').setup() end
     }
 
+    use {
+        'jynfairchild/twodark.nvim',
+        as = 'twodark',
+        config = function() require('twodark').setup() end
+    }
 
+    -- Set final colorscheme
+    vim.cmd('colorscheme twodark')
+
+    -- Disabled plugins (kept for reference)
+    -- use {'hedyhli/outline.nvim', config = function() require("outline").setup() end}
 end)
