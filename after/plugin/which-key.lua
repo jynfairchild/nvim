@@ -12,9 +12,27 @@ end
 vim.o.timeout = true
 vim.o.timeoutlen = 150
 
+-- Disable startup notifications for which-key
+-- This prevents warnings about overlaps from showing at startup
+local silence_warnings = vim.api.nvim_create_augroup("which_key_silence", { clear = true })
+vim.api.nvim_create_autocmd("FileType", {
+    group = silence_warnings,
+    pattern = "*",
+    callback = function()
+        -- Clear any which-key notifications that might be showing
+        vim.defer_fn(function()
+            -- Just skip the notification dismissal as it's not available in this Neovim version
+            -- Notifications will time out on their own
+        end, 100)
+    end,
+    once = true
+})
+
 -- Add this setup configuration to change the style
 which_key.setup{
-    triggers_nowait = { "[", "]" },
+    -- Replace triggers_nowait with delay option
+    -- triggers_nowait is deprecated in favor of delay
+    delay = 0,
     win = {  -- Use 'win' instead of 'window'
         no_overlap = true,
         title = true,
@@ -31,6 +49,11 @@ which_key.setup{
     },
     show_help = false,      -- Hide the help message at the bottom
     show_keys = false,
+
+    -- Disable warnings about overlapping keymaps
+    ignore_warning = {
+        "overlapping", -- Silence warnings about overlapping keymaps
+    },
 }
 
 

@@ -18,9 +18,9 @@ vim.opt.scrolloff = 12
 
 -- indents
 vim.opt.expandtab = true
-vim.opt.shiftwidth = 4
-vim.opt.tabstop = 4
-vim.opt.softtabstop = 4
+vim.opt.shiftwidth = 2
+vim.opt.tabstop = 2
+vim.opt.softtabstop = 2
 vim.opt.smartindent = true
 
 vim.opt.termguicolors = true
@@ -49,3 +49,6 @@ vim.opt.guicursor = {
 
 -- command line two lines, gets rid of "Press ENTER..."
 vim.opt.cmdheight = 2
+
+-- disable title to prevent iTerm2 from showing icons in tabs
+vim.opt.title = false

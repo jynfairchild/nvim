@@ -3,10 +3,48 @@ local lsp = require("lsp-zero")
 
 lsp.preset("recommended")
 
-lsp.ensure_installed({
-  'pylsp',
-  -- 'flake8',
+-- Setup Mason
+require('mason').setup({
+  ui = {
+    icons = {
+      package_installed = "✓",
+      package_pending = "➜",
+      package_uninstalled = "✗"
+    }
+  },
+  log_level = vim.log.levels.INFO
 })
+
+-- Map of Mason package names to LSP configurations
+local servers = {
+  ["python-lsp-server"] = {
+    -- Python LSP specific settings
+    settings = {
+      pylsp = {
+        plugins = {
+          pycodestyle = { enabled = true },
+          pyflakes = { enabled = true },
+          pydocstyle = { enabled = false },
+        }
+      }
+    }
+  }
+  -- Add other servers as needed
+}
+
+-- Set up servers from Mason
+require("mason-registry").refresh(function()
+  for name, config in pairs(servers) do
+    if require("mason-registry").is_installed(name) then
+      local server_name = name
+      if name == "python-lsp-server" then
+        server_name = "pylsp"
+      end
+
+      lsp.configure(server_name, config)
+    end
+  end
+end)
 
 -- Fix Undefined global 'vim'
 lsp.nvim_workspace()
