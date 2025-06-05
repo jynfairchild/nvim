@@ -1,5 +1,3 @@
-
-
 local smart_window_widths = function()
     -- Count visible windows
     local win_count = vim.fn.winnr('$')
