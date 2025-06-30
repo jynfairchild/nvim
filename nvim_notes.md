@@ -1,17 +1,13 @@
 
+
+# Github profile 
+[ ] make a cool profile 
+
 # portfolio-v4
-[ ] front page
-[ ] animation
-[ ] Integration
+[x] front page
+[x] animation
+[x] Integration
 [ ] mobile
-- immunity
-- age
-- size
-- type
-
-
-
-
 
 # poly prediction
 [ ] githug
@@ -22,18 +18,20 @@
 # Counting with Nick
 [ ] Get screen to be black, number white
 
-# AndCo v2
-[ ] init
+# KarroKan
+[x] init
+[ ] kanban working
 
 # Danger-Docs
-[ ] Integration with main site?
 [ ] zsh create-env run-env
+[x] upload
+[x] auth
+[ ] cleanup text input
 
 # Nvim
 [ ] make <leader>d toggle warnings instead
 of only dismissing them
 [ ] fix d] grabbing the line below it
-
 
 
 

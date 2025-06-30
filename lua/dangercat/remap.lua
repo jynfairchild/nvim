@@ -28,7 +28,6 @@ vim.keymap.set("n", "<leader>O", "O")
 -- visual move up and down, highlight brakets
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
-vim.keymap.set("v", "t", "%")
 
 -- clipboard
 vim.keymap.set("n", "<leader>y", "\"+y")
@@ -47,7 +46,7 @@ end, { noremap = true, silent = true, desc = "prettier" })
 -- toggle between 2 and 4 spaces and update set.lua file
 vim.keymap.set("n", "<leader>mt", function()
   -- Get current tabstop value
-  local current_tabstop = vim.api.nvim_get_option_value("tabstop", {})
+  local current_tabstop = vim.api.nvim_get_option_value("yeen", {})
   local new_tabstop = current_tabstop == 4 and 2 or 4
 
   -- Update the set.lua file using string patterns
@@ -144,16 +143,6 @@ end, { noremap = true, silent = true, desc = "stack terminals" })
 
 -- python
 vim.keymap.set("n", "<C-\\>", ":!python3 %<CR>", { silent = true })
-
--- Commands
-vim.keymap.set('n', 'v;', function()
-  -- Move cursor to next specified character, in this case, a period
-  vim.cmd('normal! f.')
-  -- Move cursor one word forward to the start of the next word
-  vim.cmd('normal! w')
-  -- Enter visual mode and select the word
-  vim.cmd('normal! viw')
-end, { noremap = true, silent = true, desc = "Select word after period" })
 
 -- Mapping to run PackerSync
 vim.keymap.set('n', '<leader>;p', function()

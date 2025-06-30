@@ -72,6 +72,7 @@ which_key.add({
     { "<leader>f",   desc = "File" },
     { "<leader>ff",  desc = "Find Files" },
     { "<leader>fg",  desc = "Grep Find" },
+    { "<leader>fb",  desc = "Buffer Find" },
 
     -- Unique
     { "<leader>g",   desc = "Git" },
