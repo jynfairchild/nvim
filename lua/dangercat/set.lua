@@ -52,4 +52,3 @@ vim.opt.cmdheight = 2
 
 -- disable title to prevent iTerm2 from showing icons in tabs
 vim.opt.title = false
-

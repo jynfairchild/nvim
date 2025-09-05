@@ -3,7 +3,7 @@ local lsp = require("lsp-zero")
 
 lsp.preset("recommended")
 
--- Setup Mason
+-- Setup Mason 
 require('mason').setup({
   ui = {
     icons = {
@@ -15,39 +15,45 @@ require('mason').setup({
   log_level = vim.log.levels.INFO
 })
 
--- Map of Mason package names to LSP configurations
-local servers = {
-  ["python-lsp-server"] = {
-    -- Python LSP specific settings
-    settings = {
-      pylsp = {
-        plugins = {
-          pycodestyle = { enabled = true },
-          pyflakes = { enabled = true },
-          pydocstyle = { enabled = false },
-        }
+-- Fix Undefined global 'vim'
+lsp.nvim_workspace()
+
+-- Configure gopls with lsp-zero
+lsp.configure('gopls', {
+  settings = {
+    gopls = {
+      analyses = {
+        unusedparams = true,
+      },
+      staticcheck = true,
+      gofumpt = true,
+      usePlaceholders = true,
+      completeUnimported = true,
+    }
+  }
+})
+
+-- Configure pylsp with lsp-zero
+lsp.configure('pylsp', {
+  settings = {
+    pylsp = {
+      plugins = {
+        pycodestyle = { enabled = true },
+        pyflakes = { enabled = true },
+        pydocstyle = { enabled = false },
       }
     }
   }
-  -- Add other servers as needed
-}
+})
 
--- Set up servers from Mason
-require("mason-registry").refresh(function()
-  for name, config in pairs(servers) do
-    if require("mason-registry").is_installed(name) then
-      local server_name = name
-      if name == "python-lsp-server" then
-        server_name = "pylsp"
-      end
+-- Ensure these servers are set up
+lsp.ensure_installed({
+  'gopls',
+  'pylsp',
+})
 
-      lsp.configure(server_name, config)
-    end
-  end
-end)
-
--- Fix Undefined global 'vim'
-lsp.nvim_workspace()
+-- Setup lsp-zero before individual server configs
+lsp.setup()
 
 
 local cmp = require('cmp')
@@ -92,6 +98,26 @@ lsp.on_attach(function(client, bufnr)
 end)
 
 lsp.setup()
+
+-- Manually ensure gopls starts for go files
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "go",
+  callback = function()
+    vim.lsp.start({
+      name = 'gopls',
+      cmd = {'gopls'},
+      root_dir = vim.fs.dirname(vim.fs.find({'go.mod', '.git'}, { upward = true })[1]),
+      settings = {
+        gopls = {
+          analyses = {
+            unusedparams = true,
+          },
+          staticcheck = true,
+        }
+      }
+    })
+  end,
+})
 
 vim.diagnostic.config({
     virtual_text = true
