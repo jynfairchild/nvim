@@ -204,11 +204,6 @@ vim.keymap.set('n', '<leader>;f', function()
     vim.cmd('luafile ~/.config/nvim/after/plugin/fterm.lua')
 end, { noremap = true, silent = false, desc = "reload fterm" })
 
--- colorscheme testing
-vim.keymap.set('n', '<leader>;c', function()
-    vim.cmd('colorscheme twodark')
-end, { noremap = true, silent = false, desc = "reload twodark" })
-
 
 -- running lua
 vim.keymap.set('n', "<space>]]", "<cmd>source %<CR>")
@@ -248,11 +243,11 @@ vim.keymap.set('n', '<leader>gd', function()
     require('telescope.builtin').lsp_definitions()
 end, { noremap = true, silent = true, desc = "Go to definition" })
 
-vim.keymap.set('n', '<leader>gh', function() 
-    vim.lsp.buf.hover() 
+vim.keymap.set('n', '<leader>gh', function()
+    vim.lsp.buf.hover()
 end, { noremap = true, silent = true, desc = "Hover documentation" })
 
-vim.keymap.set('n', '<leader>gr', function() 
+vim.keymap.set('n', '<leader>gr', function()
     require('telescope.builtin').lsp_references()
 end, { noremap = true, silent = true, desc = "Show references" })
 
@@ -268,7 +263,7 @@ vim.keymap.set('n', '<leader>ld', function()
         print("No LSP clients attached")
     else
         for _, client in ipairs(clients) do
-            print(string.format("LSP: %s (id: %d, root: %s)", 
+            print(string.format("LSP: %s (id: %d, root: %s)",
                 client.name, client.id, client.config.root_dir or "none"))
         end
     end

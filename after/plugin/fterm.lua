@@ -47,14 +47,14 @@ local third_term = fterm:new({
     },
 })
 
--- k4 
+-- k4
 local fourth_term = fterm:new({
     ft = 'fourth_term',
     border = 'double',
     dimensions = {
         height = .7,
-        width = 0.48,
-        x = 1,
+        width = 0.49,
+        x = 0,
         y = .7,
     },
 })
@@ -65,11 +65,12 @@ local fifth_term = fterm:new({
     border = 'double',
     dimensions = {
         height = .7,
-        width = 0.49,
-        x = 0,
+        width = 0.48,
+        x = 1,
         y = .7,
     },
 })
+
 
 local sixth_term = fterm:new({
     ft = 'sixth_term',

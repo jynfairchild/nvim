@@ -1,18 +1,80 @@
-require('twodark').setup  {
-    -- Main options --
-    style = 'warmer', -- Default theme style. Choose between 'dark', 'darker', 'cool', 'deep', 'warm', 'warmer' and 'light'
-    transparent = true,  -- Show/hide background
-    term_colors = true, -- Change terminal color as per the selected theme style
-    ending_tildes = false, -- Show the end-of-buffer tildes. By default they are hidden
-    cmp_itemkind_reverse = false, -- reverse item kind highlights in cmp menu
+-- Development reload function (commented out for later iterations)
+-- local function reload_twodark()
+--     -- Clear the module from cache
+--     package.loaded['twodark'] = nil
+--     package.loaded['twodark.colors'] = nil
+--     package.loaded['twodark.config'] = nil
+--     package.loaded['twodark.theme'] = nil
+--     package.loaded['twodark.terminal'] = nil
+--
+--     -- Clear any other twodark modules
+--     for k, _ in pairs(package.loaded) do
+--         if k:match('^twodark') then
+--             package.loaded[k] = nil
+--         end
+--     end
+--
+--     -- Check if twodark is available
+--     local ok, twodark = pcall(require, 'twodark')
+--     if not ok then
+--         print("Twodark not found! Run :PackerSync first")
+--         return
+--     end
+--
+--     -- Reload and apply
+--     twodark.setup({
+--         style = 'warmer',
+--         transparent = true,
+--         term_colors = true,
+--         ending_tildes = false,
+--         cmp_itemkind_reverse = false,
+--         toggle_style_key = "<leader>ts",
+--         toggle_style_list = { "warmer" },
+--         code_style = {
+--             comments = 'italic',
+--             keywords = 'none',
+--             functions = 'none',
+--             strings = 'none',
+--             variables = 'none'
+--         },
+--         lualine = {
+--             transparent = false,
+--         },
+--         colors = {},
+--         highlights = {},
+--         diagnostics = {
+--             darker = false,
+--             undercurl = false,
+--             background = false,
+--         },
+--     })
+--
+--     twodark.load()
+--     print("Twodark colorscheme reloaded!")
+-- end
+--
+-- -- Keymapping for quick reload during development
+-- vim.keymap.set('n', '<leader>tr', reload_twodark, { desc = 'Reload twodark colorscheme' })
+--
+-- -- Initial load
+-- reload_twodark()
 
-    -- toggle theme style ---
-    toggle_style_key = "<leader>ts", -- keybind to toggle theme style. Leave it nil to disable it, or set it to a string, for example "<leader>ts"
-    toggle_style_list = { "warmer" }, -- List of styles to toggle between
+-- Basic setup for official twodark.nvim
+local ok, twodark = pcall(require, 'twodark')
+if not ok then
+    vim.notify("Twodark not found! Run :PackerSync first", vim.log.levels.ERROR)
+    return
+end
 
-    -- Change code style ---
-    -- Options are italic, bold, underline, none
-    -- You can configure multiple style with comma separated, For e.g., keywords = 'italic,bold'
+-- Setup twodark with your preferences
+twodark.setup({
+    style = 'warmer',
+    transparent = true,
+    term_colors = true,
+    ending_tildes = false,
+    cmp_itemkind_reverse = false,
+    toggle_style_key = "<leader>ts",
+    toggle_style_list = { "warmer" },
     code_style = {
         comments = 'italic',
         keywords = 'none',
@@ -20,24 +82,17 @@ require('twodark').setup  {
         strings = 'none',
         variables = 'none'
     },
-
-    -- Lualine options --
     lualine = {
-        transparent = false, -- lualine center bar transparency
+        transparent = false,
     },
-
-    -- Custom Highlights --
-    colors = {
-
-    }, -- Override default colors
-    highlights = {}, -- Override highlight groups
-
-    -- Plugins Config --
+    colors = {},
+    highlights = {},
     diagnostics = {
-        darker = false, -- darker colors for diagnostic
-        undercurl = false,   -- use undercurl instead of underline for diagnostics
-        background = false,    -- use background color for virtual text
+        darker = false,
+        undercurl = false,
+        background = false,
     },
-}
+})
 
-require('twodark').load()
+-- Load the colorscheme
+twodark.load()

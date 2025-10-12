@@ -139,14 +139,11 @@ return require('packer').startup(function(use)
         config = function() require('onedark').setup() end
     }
 
-    use {
-        'jynfairchild/twodark.nvim',
-        as = 'twodark',
-        config = function() require('twodark').setup() end
-    }
+    -- Local development colorscheme (commented out for official version)
+    -- use '/Users/dangercat/Documents/GitHub/twodark.nvim'
 
-    -- Set final colorscheme
-    vim.cmd('colorscheme twodark')
+    -- Official twodark colorscheme
+    use 'jynfairchild/twodark.nvim'
 
     -- Disabled plugins (kept for reference)
     -- use {'hedyhli/outline.nvim', config = function() require("outline").setup() end}
