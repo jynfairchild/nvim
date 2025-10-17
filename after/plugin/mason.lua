@@ -1,6 +1,3 @@
--- Configure Mason
-local mason_path = vim.fn.stdpath("data") .. "/mason"
-
 -- Create a function to install servers through Mason API
 local function ensure_installed(servers)
     local registry = require("mason-registry")
@@ -36,8 +33,8 @@ end
 
 -- List of servers to install (using lsp server names)
 local servers = {
+    'gopls',
     'pylsp',
-    -- Add other servers you need here
 }
 
 -- Setup Mason with custom configuration

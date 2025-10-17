@@ -25,10 +25,12 @@ vim.opt.smartindent = true
 
 vim.opt.termguicolors = true
 vim.opt.updatetime = 50
-vim.opt.timeoutlen = 10
+vim.opt.timeoutlen = 300
 vim.g.mapleader = " "
 
 vim.g.copilot_assume_mapped = true
+vim.g.copilot_no_tab_map = true
+vim.g.copilot_node_command = "/opt/homebrew/bin/node"
 vim.opt.fillchars = { eob = " " }
 
 -- comments

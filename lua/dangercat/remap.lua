@@ -9,6 +9,11 @@ vim.keymap.set("n", "<C-u>", "<C-u>zz")
 vim.keymap.set("n", "-", "12<C-y>")
 vim.keymap.set("n", "=", "12<C-e>")
 
+-- copilot accept suggestion without using tab
+vim.keymap.set("i", "<D-\\>", function()
+    return vim.fn["copilot#Accept"]("")
+end, { expr = true, replace_keycodes = false, desc = "Accept Copilot suggestion" })
+
 -- move to the front and back of a line
 vim.keymap.set('n', ']', '$')
 vim.keymap.set('n', '[', '0')
@@ -37,6 +42,24 @@ vim.keymap.set("n", "<leader>Y", "\"+Y")
 -- keep copy over cut
 vim.keymap.set("n", "<leader>p", '"+p', { noremap = true, silent = true })
 vim.keymap.set('x', '<leader>p', '"_dP', { noremap = true, silent = true })
+vim.keymap.set('n', 'p', function()
+    if vim.v.register == '"' then
+        return '"0p'
+    end
+    return '"' .. vim.v.register .. 'p'
+end, { expr = true, replace_keycodes = false, silent = true, desc = "Paste from last yank" })
+vim.keymap.set('n', 'P', function()
+    if vim.v.register == '"' then
+        return '"0P'
+    end
+    return '"' .. vim.v.register .. 'P'
+end, { expr = true, replace_keycodes = false, silent = true, desc = "Paste before from last yank" })
+vim.keymap.set('x', 'p', function()
+    if vim.v.register == '"' then
+        return '"_dP'
+    end
+    return '"' .. vim.v.register .. 'p'
+end, { expr = true, replace_keycodes = false, silent = true, desc = "Paste without clobbering default register" })
 
 -- prettier format
 vim.keymap.set("n", "<leader>mm", function()

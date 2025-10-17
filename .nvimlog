@@ -1,0 +1,2 @@
+WRN 2025-10-17T16:00:44.863 c/nvim.12137.0 server_start:193: Failed to start server: operation not permitted: /var/folders/6x/cr79nwx14w58jc3f72v7pw5r0000gn/T/nvim.dangercat/2Bh16u/nvim.13447.0
+WRN 2025-10-17T16:05:51.283 c/nvim.16454.0 server_start:193: Failed to start server: operation not permitted: /var/folders/6x/cr79nwx14w58jc3f72v7pw5r0000gn/T/nvim.dangercat/RP3kQ3/nvim.19816.0
