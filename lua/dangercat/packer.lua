@@ -31,7 +31,7 @@ return require('packer').startup(function(use)
 
     -- Language and syntax
     use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
-    use 'nvim-treesitter/playground'
+    use 'nvim-treesitter/nvim-treesitter-context'
 
     -- LSP and completion
     use {

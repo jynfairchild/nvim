@@ -164,6 +164,24 @@ vim.keymap.set('n', '<k9>', ':FTermSeventh<CR>', { noremap = true, silent = true
 vim.keymap.set('t', '<k9>', '<C-\\><C-n>:FTermSeventh<CR>',
     { noremap = true, silent = true, desc = "toggle terminal from inside" })
 
+-- Option key bindings for MacBook (no numpad) - US keyboard layout
+vim.keymap.set('n', '¶', ':FTermFourth<CR>', { noremap = true, silent = true, desc = "toggle large terminal (opt+7)" })
+vim.keymap.set('t', '¶', '<C-\\><C-n>:FTermFourth<CR>',
+    { noremap = true, silent = true, desc = "toggle terminal from inside (opt+7)" })
+
+vim.keymap.set('n', '•', ':FTermSecond<CR>', { noremap = true, silent = true, desc = "toggle large terminal (opt+8)" })
+vim.keymap.set('t', '•', '<C-\\><C-n>:FTermSecond<CR>',
+    { noremap = true, silent = true, desc = "toggle terminal from inside (opt+8)" })
+
+vim.keymap.set('n', 'ª', ':FTermThird<CR>', { noremap = true, silent = true, desc = "toggle large terminal (opt+9)" })
+vim.keymap.set('t', 'ª', '<C-\\><C-n>:FTermThird<CR>',
+    { noremap = true, silent = true, desc = "toggle terminal from inside (opt+9)" })
+
+vim.keymap.set('n', 'º', ':FTermFirst<CR>', { noremap = true, silent = true, desc = "toggle small terminal (opt+0)" })
+vim.keymap.set('t', 'º', '<C-\\><C-n>:FTermFirst<CR>',
+    { noremap = true, silent = true, desc = "toggle terminal from inside (opt+0)" })
+
+
 vim.keymap.set("n", "<leader>ty", function()
     -- Open horizontal terminal
     require("nvterm.terminal").toggle('horizontal')
