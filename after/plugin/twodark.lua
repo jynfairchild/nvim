@@ -68,8 +68,8 @@ end
 
 -- Setup twodark with your preferences
 twodark.setup({
-    style = 'warmer',
-    transparent = true,
+    style = 'darker',
+    transparent = false,
     term_colors = true,
     ending_tildes = false,
     cmp_itemkind_reverse = false,
