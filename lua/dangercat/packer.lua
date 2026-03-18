@@ -53,7 +53,7 @@ return require('packer').startup(function(use)
     -- Fuzzy finder
     use {
         'nvim-telescope/telescope.nvim',
-        tag = '0.1.6',
+        branch = 'master',
         requires = { { 'nvim-lua/plenary.nvim' } }
     }
 
