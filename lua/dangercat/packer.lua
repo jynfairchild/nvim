@@ -139,11 +139,10 @@ return require('packer').startup(function(use)
         config = function() require('onedark').setup() end
     }
 
-    -- Local development colorscheme (commented out for official version)
-    -- use '/Users/dangercat/Documents/GitHub/twodark.nvim'
-
-    -- Official twodark colorscheme
-    use 'jynfairchild/twodark.nvim'
+    -- Twodark colorscheme (loaded via runtimepath:prepend in init.lua, NOT packer)
+    -- Do NOT uncomment these — packer copies files and creates a stale duplicate
+    -- use '/Users/dangercat/Documents/Github/twodark.nvim'
+    -- use 'jynfairchild/twodark.nvim'
 
     -- Disabled plugins (kept for reference)
     -- use {'hedyhli/outline.nvim', config = function() require("outline").setup() end}

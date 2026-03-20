@@ -74,7 +74,7 @@ Dangercat = {
 require('lualine').setup {
   options = {
     icons_enabled = true,
-    theme = Dangercat,
+    theme = 'twodark',
     component_separators = { left = '', right = ''},
     section_separators = { left = '', right = ''},
     disabled_filetypes = {

@@ -245,6 +245,27 @@ vim.keymap.set('n', '<leader>;f', function()
     vim.cmd('luafile ~/.config/nvim/after/plugin/fterm.lua')
 end, { noremap = true, silent = false, desc = "reload fterm" })
 
+-- Mapping to reload twodark colorscheme from local dev directory
+vim.keymap.set('n', '<leader>;t', function()
+    -- 1. Clear Lua module cache (twodark + all lualine theme caches)
+    for k in pairs(package.loaded) do
+        if k:match("^twodark") or k:match("^lualine") or k:match("^ibl") then package.loaded[k] = nil end
+    end
+    -- 2. Reset vim.loader bytecode/path cache (Neovim 0.9+)
+    if vim.loader and vim.loader.reset then
+        vim.loader.reset()
+    end
+    -- 3. Prepend local dev path so it takes priority
+    vim.opt.runtimepath:prepend("/Users/dangercat/Documents/Github/twodark.nvim")
+    -- 4. Re-require and apply colorscheme
+    require('twodark').setup()
+    require('twodark').colorscheme()
+    -- 5. Re-source plugin configs that cache their own colors
+    vim.cmd('luafile ~/.config/nvim/after/plugin/lualine.lua')
+    vim.cmd('luafile ~/.config/nvim/after/plugin/ibl.lua')
+    print("twodark + plugins reloaded from: " .. debug.getinfo(require('twodark').setup, "S").source)
+end, { noremap = true, silent = false, desc = "reload twodark colorscheme" })
+
 
 -- running lua
 vim.keymap.set('n', "<space>]]", "<cmd>source %<CR>")

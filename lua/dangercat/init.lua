@@ -19,5 +19,4 @@ vim.lsp.config('lua_ls', {
 
 vim.lsp.enable('lua_ls')
 
--- require("dangercat.set")
 print("dangercat set, remap, loaded")

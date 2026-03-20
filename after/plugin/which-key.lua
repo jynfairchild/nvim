@@ -91,6 +91,7 @@ which_key.add({
 
     -- Reload nvim Lua
     { "<leader>;",   desc = "Reload nvim Lua" },
+    { "<leader>;t",  desc = "Reload Twodark" },
     { mode = { "v" }, { "<leader>]", desc = "Run Lua Highlighted segment" } },
 
     -- Copy Paste
