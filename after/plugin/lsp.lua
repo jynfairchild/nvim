@@ -58,12 +58,28 @@ vim.lsp.config("pylsp", {
   },
 })
 
+vim.lsp.config("lua_ls", {
+  capabilities = capabilities,
+  on_attach = on_attach,
+  settings = {
+    Lua = {
+      runtime = { version = "LuaJIT" },
+      diagnostics = { globals = { "vim" } },
+      workspace = {
+        library = vim.api.nvim_get_runtime_file("", true),
+        checkThirdParty = false,
+      },
+      telemetry = { enable = false },
+    },
+  },
+})
+
 require("mason-lspconfig").setup({
-  ensure_installed = { "gopls", "pylsp" },
+  ensure_installed = { "gopls", "pylsp", "lua_ls" },
   automatic_enable = false,
 })
 
-for _, server in ipairs({ "gopls", "pylsp" }) do
+for _, server in ipairs({ "gopls", "pylsp", "lua_ls" }) do
   vim.lsp.enable(server)
 end
 

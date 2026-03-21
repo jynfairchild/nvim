@@ -57,12 +57,16 @@ This installs all plugins defined in `lua/dangercat/packer.lua`.
 
 ### 7. Install LSP Servers
 
-Mason should auto-install on first open, but you can trigger manually:
+Mason auto-installs the following servers on first open via `ensure_installed` in `after/plugin/lsp.lua`:
+
+- **gopls** — Go
+- **pylsp** — Python
+- **lua_ls** — Lua (configured with LuaJIT runtime and `vim` global for Neovim development)
+
+If auto-install doesn't trigger, run manually:
 
 ```
-:MasonInstall gopls
-:MasonInstall python-lsp-server
-:MasonInstall lua-language-server
+:MasonInstall gopls python-lsp-server lua-language-server
 ```
 
 ### 8. Install Treesitter Parsers
