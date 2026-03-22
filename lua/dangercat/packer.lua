@@ -71,13 +71,7 @@ return require('packer').startup(function(use)
     }
 
     -- Keybinding help
-    use {
-        'folke/which-key.nvim',
-        config = function()
-            vim.o.timeout = true
-            vim.o.timeoutlen = 150
-        end
-    }
+    use { 'folke/which-key.nvim' }
 
     -- Code completion
     use {
@@ -133,16 +127,7 @@ return require('packer').startup(function(use)
     use { 'fcpg/vim-fahrenheit', as = 'fahrenheit' }
     use { 'sainnhe/sonokai', as = 'sonokai' }
 
-    use {
-        'navarasu/onedark.nvim',
-        as = 'onedark',
-        config = function() require('onedark').setup() end
-    }
-
-    -- Twodark colorscheme (loaded via runtimepath:prepend in init.lua, NOT packer)
-    -- Do NOT uncomment these — packer copies files and creates a stale duplicate
-    -- use '/Users/dangercat/Documents/Github/twodark.nvim'
-    -- use 'jynfairchild/twodark.nvim'
+    -- forestfloor colorscheme (loaded via runtimepath:prepend in init.lua, NOT packer)
 
     -- Disabled plugins (kept for reference)
     -- use {'hedyhli/outline.nvim', config = function() require("outline").setup() end}

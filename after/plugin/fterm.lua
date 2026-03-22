@@ -1,9 +1,16 @@
 local fterm = require('FTerm')
 
+-- Darker border for fterm floating windows
+vim.api.nvim_set_hl(0, 'FTermBorder', { fg = '#555555' })
+local db = {
+    { '╔', 'FTermBorder' }, { '═', 'FTermBorder' }, { '╗', 'FTermBorder' }, { '║', 'FTermBorder' },
+    { '╝', 'FTermBorder' }, { '═', 'FTermBorder' }, { '╚', 'FTermBorder' }, { '║', 'FTermBorder' },
+}
+
 -- Setup the main FTerm instance for notes
 -- notes
 fterm.setup({
-    border = 'double',
+    border = db,
     cmd = 'nvim /Users/dangercat/Library/CloudStorage/Dropbox/Notes/nvim/nvim_notes.md',
     dimensions = {
         height = .7,
@@ -16,7 +23,7 @@ fterm.setup({
 -- Create a second terminal instance
 local first_term = fterm:new({
     ft = 'fterm_regular',
-    border = 'double',
+    border = db,
     dimensions = {
         height = .8,
         width = 0.8,
@@ -27,7 +34,7 @@ local first_term = fterm:new({
 
 local second_term = fterm:new({
     ft = 'second_term',
-    border = 'double',
+    border = db,
     dimensions = {
         height = .8,
         width = 0.8,
@@ -38,7 +45,7 @@ local second_term = fterm:new({
 
 local third_term = fterm:new({
     ft = 'third_term',
-    border = 'double',
+    border = db,
     dimensions = {
         height = .8,
         width = 0.8,
@@ -50,7 +57,7 @@ local third_term = fterm:new({
 -- k4
 local fourth_term = fterm:new({
     ft = 'fourth_term',
-    border = 'double',
+    border = db,
     dimensions = {
         height = .7,
         width = 0.49,
@@ -62,7 +69,7 @@ local fourth_term = fterm:new({
 -- k5
 local fifth_term = fterm:new({
     ft = 'fifth_term',
-    border = 'double',
+    border = db,
     dimensions = {
         height = .7,
         width = 0.48,
@@ -74,7 +81,7 @@ local fifth_term = fterm:new({
 
 local sixth_term = fterm:new({
     ft = 'sixth_term',
-    border = 'double',
+    border = db,
     dimensions = {
         height = 1,
         width = 0.4,
@@ -85,7 +92,7 @@ local sixth_term = fterm:new({
 
 local seventh_term = fterm:new({
     ft = 'seventh_term',
-    border = 'double',
+    border = db,
     dimensions = {
         height = 1,
         width = 0.4,

@@ -245,26 +245,55 @@ vim.keymap.set('n', '<leader>;f', function()
     vim.cmd('luafile ~/.config/nvim/after/plugin/fterm.lua')
 end, { noremap = true, silent = false, desc = "reload fterm" })
 
--- Mapping to reload twodark colorscheme from local dev directory
-vim.keymap.set('n', '<leader>;t', function()
-    -- 1. Clear Lua module cache (twodark + all lualine theme caches)
+-- Mapping to reload all after/plugin files
+vim.keymap.set('n', '<leader>;A', function()
+    -- Clear module caches
     for k in pairs(package.loaded) do
-        if k:match("^twodark") or k:match("^lualine") or k:match("^ibl") then package.loaded[k] = nil end
+        if k:match("^forestfloor") or k:match("^lualine") or k:match("^ibl")
+            or k:match("^gitsigns") or k:match("^barbar") or k:match("^which%-key")
+            or k:match("^nvterm") or k:match("^Comment") or k:match("^todo%-comments")
+            or k:match("^telescope") or k:match("^cmp") or k:match("^fterm") then
+            package.loaded[k] = nil
+        end
+    end
+    if vim.loader and vim.loader.reset then
+        vim.loader.reset()
+    end
+    -- Reload colorscheme first
+    vim.opt.runtimepath:prepend("/Users/dangercat/Documents/GitHub/forestfloor.nvim")
+    require('forestfloor').setup()
+    require('forestfloor').colorscheme()
+    -- Reload all after/plugin files
+    local plugin_dir = vim.fn.expand('~/.config/nvim/after/plugin')
+    for _, file in ipairs(vim.fn.glob(plugin_dir .. '/*.lua', false, true)) do
+        local ok, err = pcall(vim.cmd, 'luafile ' .. file)
+        if not ok then
+            print('Error reloading ' .. vim.fn.fnamemodify(file, ':t') .. ': ' .. err)
+        end
+    end
+    print('All plugins reloaded')
+end, { noremap = true, silent = false, desc = "reload all plugins" })
+
+-- Mapping to reload forestfloor colorscheme from local dev directory
+vim.keymap.set('n', '<leader>;t', function()
+    -- 1. Clear Lua module cache (forestfloor + all lualine theme caches)
+    for k in pairs(package.loaded) do
+        if k:match("^forestfloor") or k:match("^lualine") or k:match("^ibl") then package.loaded[k] = nil end
     end
     -- 2. Reset vim.loader bytecode/path cache (Neovim 0.9+)
     if vim.loader and vim.loader.reset then
         vim.loader.reset()
     end
     -- 3. Prepend local dev path so it takes priority
-    vim.opt.runtimepath:prepend("/Users/dangercat/Documents/Github/twodark.nvim")
+    vim.opt.runtimepath:prepend("/Users/dangercat/Documents/GitHub/forestfloor.nvim")
     -- 4. Re-require and apply colorscheme
-    require('twodark').setup()
-    require('twodark').colorscheme()
+    require('forestfloor').setup()
+    require('forestfloor').colorscheme()
     -- 5. Re-source plugin configs that cache their own colors
     vim.cmd('luafile ~/.config/nvim/after/plugin/lualine.lua')
     vim.cmd('luafile ~/.config/nvim/after/plugin/ibl.lua')
-    print("twodark + plugins reloaded from: " .. debug.getinfo(require('twodark').setup, "S").source)
-end, { noremap = true, silent = false, desc = "reload twodark colorscheme" })
+    print("forestfloor + plugins reloaded from: " .. debug.getinfo(require('forestfloor').setup, "S").source)
+end, { noremap = true, silent = false, desc = "reload forestfloor colorscheme" })
 
 
 -- running lua

@@ -1,4 +1,6 @@
 require('gitsigns').setup({
+  -- Disable gutter signs (barbar still reads git data for tab indicators)
+  signcolumn = false,
   -- Reduce file watching to save file descriptors
   watch_gitdir = {
     enable = false,
