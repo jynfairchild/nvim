@@ -74,12 +74,29 @@ vim.lsp.config("lua_ls", {
   },
 })
 
+vim.lsp.config("ltex_plus", {
+  capabilities = capabilities,
+  on_attach = on_attach,
+  filetypes = { "markdown", "asciidoc", "text", "plaintex", "tex", "gitcommit" },
+  settings = {
+    ltex = {
+      language = "en-US",
+      additionalRules = {
+        enablePickyRules = true,
+      },
+      disabledRules = {
+        ["en-US"] = { "PROFANITY" },
+      },
+    },
+  },
+})
+
 require("mason-lspconfig").setup({
-  ensure_installed = { "gopls", "pylsp", "lua_ls" },
+  ensure_installed = { "gopls", "pylsp", "lua_ls", "ltex_plus" },
   automatic_enable = false,
 })
 
-for _, server in ipairs({ "gopls", "pylsp", "lua_ls" }) do
+for _, server in ipairs({ "gopls", "pylsp", "lua_ls", "ltex_plus" }) do
   vim.lsp.enable(server)
 end
 

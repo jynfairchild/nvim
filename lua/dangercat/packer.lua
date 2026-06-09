@@ -126,7 +126,17 @@ return require('packer').startup(function(use)
     use { 'nyoom-engineering/oxocarbon.nvim', as = 'oxocarbon' }
     use { 'fcpg/vim-fahrenheit', as = 'fahrenheit' }
     use { 'sainnhe/sonokai', as = 'sonokai' }
-
+    use {
+      'jynfairchild/forestfloor.nvim',
+      config = function()
+        require('forestfloor').setup({
+          style = 'day',
+          term_colors = true,
+          lualine = { transparent = false },
+        })
+        require('forestfloor').load()
+      end
+  }
     -- forestfloor colorscheme (loaded via runtimepath:prepend in init.lua, NOT packer)
 
     -- Disabled plugins (kept for reference)
