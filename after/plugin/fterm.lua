@@ -1,7 +1,11 @@
 local fterm = require('FTerm')
 
--- Darker border for fterm floating windows
-vim.api.nvim_set_hl(0, 'FTermBorder', { fg = '#555555' })
+-- Darker border for fterm floating windows (re-apply after colorscheme changes)
+local function set_fterm_hl()
+    vim.api.nvim_set_hl(0, 'FTermBorder', { fg = '#555555' })
+end
+set_fterm_hl()
+vim.api.nvim_create_autocmd('ColorScheme', { callback = set_fterm_hl })
 local db = {
     { '╔', 'FTermBorder' }, { '═', 'FTermBorder' }, { '╗', 'FTermBorder' }, { '║', 'FTermBorder' },
     { '╝', 'FTermBorder' }, { '═', 'FTermBorder' }, { '╚', 'FTermBorder' }, { '║', 'FTermBorder' },
