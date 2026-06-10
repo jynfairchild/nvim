@@ -14,6 +14,12 @@ vim.keymap.set("i", "<D-\\>", function()
     return vim.fn["copilot#Accept"]("")
 end, { expr = true, replace_keycodes = false, desc = "Accept Copilot suggestion" })
 
+-- Option+Backspace deletes previous word (macOS convention).
+-- <C-w> is vim's built-in equivalent; this just adds opt+bs as a second trigger.
+-- Cmd+Backspace deletes to start of line (also macOS convention).
+vim.keymap.set("i", "<M-BS>", "<C-w>", { desc = "Delete previous word" })
+vim.keymap.set("i", "<D-BS>", "<C-u>", { desc = "Delete to start of line" })
+
 -- move to the front and back of a line
 vim.keymap.set('n', ']', '$')
 vim.keymap.set('n', '[', '0')
@@ -101,6 +107,12 @@ vim.keymap.set("n", "<kPlus>", ":resize +8<CR>")
 -- split
 vim.keymap.set("n", "<leader>sv", ":vsp<CR>")
 vim.keymap.set("n", "<leader>sh", ":sp<CR>")
+-- vertical split with a fresh empty buffer (lands LEFT of current window)
+vim.keymap.set("n", "<leader>sb", ":vnew<CR>",
+    { silent = true, desc = "Vertical split with empty buffer (left)" })
+-- vertical split with a fresh empty buffer (lands RIGHT of current window)
+vim.keymap.set("n", "<leader>sn", ":rightbelow vnew<CR>",
+    { silent = true, desc = "Vertical split with empty buffer (right)" })
 
 -- find and replace
 vim.keymap.set("n", "<leader>h", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
@@ -180,6 +192,17 @@ vim.keymap.set('t', 'ª', '<C-\\><C-n>:FTermThird<CR>',
 vim.keymap.set('n', 'º', ':FTermFirst<CR>', { noremap = true, silent = true, desc = "toggle small terminal (opt+0)" })
 vim.keymap.set('t', 'º', '<C-\\><C-n>:FTermFirst<CR>',
     { noremap = true, silent = true, desc = "toggle terminal from inside (opt+0)" })
+
+-- Window width resize for MacBook (no numpad) - mirrors numpad <k7>/<k8>
+-- ¢ = opt+4 (width -), ∞ = opt+5 (width +)
+vim.keymap.set('n', '¢', ':vertical resize -10<CR>',
+    { noremap = true, silent = true, desc = "Window width - (opt+4)" })
+vim.keymap.set('n', '∞', ':vertical resize +10<CR>',
+    { noremap = true, silent = true, desc = "Window width + (opt+5)" })
+vim.keymap.set('t', '¢', '<C-\\><C-n>:vertical resize -10<CR>i',
+    { noremap = true, silent = true, desc = "Window width - from terminal (opt+4)" })
+vim.keymap.set('t', '∞', '<C-\\><C-n>:vertical resize +10<CR>i',
+    { noremap = true, silent = true, desc = "Window width + from terminal (opt+5)" })
 
 
 vim.keymap.set("n", "<leader>ty", function()
@@ -504,33 +527,18 @@ vim.keymap.set('n', '<leader>pd', function()
 end, { noremap = true, silent = true, desc = "Compile and Run Playdate PDX" })
 
 
+-- True on/off toggle. Uses vim.diagnostic.enable() rather than
+-- vim.diagnostic.config() so the display setup in lsp.lua (float-on-hover,
+-- signs, underlines) isn't clobbered when toggling back on.
 vim.keymap.set('n', '<leader>d', function()
-    local diagnostics_enabled = vim.diagnostic.is_enabled()
-    if diagnostics_enabled then
-        vim.diagnostic.config({
-            severity_sort = true,
-            underline = {
-                severity = { min = vim.diagnostic.severity.ERROR }
-            },
-            virtual_text = {
-                severity = { min = vim.diagnostic.severity.ERROR }
-            },
-            signs = {
-                severity = { min = vim.diagnostic.severity.ERROR }
-            }
-        })
-        print("Warnings hidden, only errors showing")
+    if vim.diagnostic.is_enabled() then
+        vim.diagnostic.enable(false)
+        print("Diagnostics off")
     else
-        vim.diagnostic.enable()
-        vim.diagnostic.config({
-            severity_sort = true,
-            underline = true,
-            virtual_text = true,
-            signs = true
-        })
-        print("All diagnostics enabled")
+        vim.diagnostic.enable(true)
+        print("Diagnostics on")
     end
-end, { noremap = true, silent = true, desc = "Toggle diagnostic warnings" })
+end, { noremap = true, silent = true, desc = "Toggle diagnostics" })
 
 -- Echo hi josh
 vim.keymap.set('n', '<leader>hj', ':echo "hi josh"<CR>', { noremap = true, silent = false, desc = "Say hi to Josh" })

@@ -101,5 +101,26 @@ for _, server in ipairs({ "gopls", "pylsp", "lua_ls", "ltex_plus" }) do
 end
 
 vim.diagnostic.config({
-  virtual_text = true,
+  virtual_text = false,
+  virtual_lines = false,
+  underline = true,
+  signs = true,
+  float = {
+    border = "rounded",
+    source = true,    -- show "ltex_plus" so you know what flagged it
+    focusable = false,
+    scope = "cursor", -- only the diagnostic on the exact cursor word
+  },
+})
+
+-- Auto-show diagnostic float when cursor pauses on a problem word.
+-- Normal mode only (don't pop while typing). updatetime=50 makes this near-instant.
+vim.api.nvim_create_autocmd("CursorHold", {
+  callback = function()
+    -- Skip if a float (any kind) is already open
+    for _, win in ipairs(vim.api.nvim_list_wins()) do
+      if vim.api.nvim_win_get_config(win).relative ~= "" then return end
+    end
+    vim.diagnostic.open_float(nil, { focus = false, scope = "cursor" })
+  end,
 })

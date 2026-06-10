@@ -118,6 +118,9 @@ return require('packer').startup(function(use)
     -- Jupyter notebook support
     use { 'dccsillag/magma-nvim', run = ':UpdateRemotePlugins' }
 
+    -- Centered writing mode (caps line width for prose)
+    use 'shortcuts/no-neck-pain.nvim'
+
     ---------------------
     -- Color Schemes --
     ---------------------

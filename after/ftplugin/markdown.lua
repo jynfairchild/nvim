@@ -10,9 +10,22 @@ vim.opt_local.list = false -- 'list' breaks linebreak, force it off
 vim.opt_local.spell = true
 vim.opt_local.spelllang = "en_us"
 
--- Move by visual line on wrapped paragraphs (only when no count given,
--- so 5j still jumps 5 file-lines for relative-number navigation)
-vim.keymap.set("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, buffer = true })
-vim.keymap.set("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, buffer = true })
-vim.keymap.set("v", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, buffer = true })
-vim.keymap.set("v", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, buffer = true })
+-- Always move by visual line — paragraphs are one giant file line in markdown,
+-- so [n]j/[n]k should mean "n visual lines" not "n paragraphs".
+vim.keymap.set("n", "j", "gj", { buffer = true })
+vim.keymap.set("n", "k", "gk", { buffer = true })
+vim.keymap.set("v", "j", "gj", { buffer = true })
+vim.keymap.set("v", "k", "gk", { buffer = true })
+
+-- Quick-hop overrides — global '-'/'=' use <C-y>/<C-e> which scroll by file
+-- lines (= whole paragraphs here). Buffer-local versions hop visual lines.
+vim.keymap.set("n", "-", "12gk", { buffer = true })
+vim.keymap.set("n", "=", "12gj", { buffer = true })
+
+-- Arrow keys also respect visual lines (useful in insert mode where j/k type letters)
+vim.keymap.set("n", "<Up>",   "gk", { buffer = true })
+vim.keymap.set("n", "<Down>", "gj", { buffer = true })
+vim.keymap.set("v", "<Up>",   "gk", { buffer = true })
+vim.keymap.set("v", "<Down>", "gj", { buffer = true })
+vim.keymap.set("i", "<Up>",   "<C-o>gk", { buffer = true })
+vim.keymap.set("i", "<Down>", "<C-o>gj", { buffer = true })
