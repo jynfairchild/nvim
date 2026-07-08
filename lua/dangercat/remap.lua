@@ -9,10 +9,19 @@ vim.keymap.set("n", "<C-u>", "<C-u>zz")
 vim.keymap.set("n", "-", "12<C-y>")
 vim.keymap.set("n", "=", "12<C-e>")
 
--- copilot accept suggestion without using tab
-vim.keymap.set("i", "<D-\\>", function()
+-- Accept Copilot suggestion (Tab is left to the cmp menu; copilot_no_tab_map is on).
+-- Goal: accept with Cmd+\ everywhere. Terminals swallow the Cmd key, so we relay it:
+--   <D-\>  works directly in GUI front-ends (Neovide/VimR) that forward Cmd.
+--   <F13>  is what iTerm2 sends for Cmd+\ -- configured under
+--          Settings > Keys > Key Bindings: Cmd+\ -> "Send Escape Sequence" -> [1;2P
+--   <C-l>  universal manual fallback (any terminal, SSH, tmux).
+local function copilot_accept()
     return vim.fn["copilot#Accept"]("")
-end, { expr = true, replace_keycodes = false, desc = "Accept Copilot suggestion" })
+end
+local copilot_opts = { expr = true, replace_keycodes = false, desc = "Accept Copilot suggestion" }
+vim.keymap.set("i", "<D-\\>", copilot_accept, copilot_opts)
+vim.keymap.set("i", "<F13>", copilot_accept, copilot_opts)
+vim.keymap.set("i", "<C-l>", copilot_accept, copilot_opts)
 
 -- Option+Backspace deletes previous word (macOS convention).
 -- <C-w> is vim's built-in equivalent; this just adds opt+bs as a second trigger.
