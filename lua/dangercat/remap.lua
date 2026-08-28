@@ -20,6 +20,10 @@ end, { expr = true, replace_keycodes = false, desc = "Accept Copilot suggestion"
 vim.keymap.set("i", "<M-BS>", "<C-w>", { desc = "Delete previous word" })
 vim.keymap.set("i", "<D-BS>", "<C-u>", { desc = "Delete to start of line" })
 
+-- Option+Arrow jumps word-by-word in insert mode (macOS convention).
+vim.keymap.set("i", "<M-Right>", "<C-o>w", { desc = "Jump to next word" })
+vim.keymap.set("i", "<M-Left>",  "<C-o>b", { desc = "Jump to previous word" })
+
 -- move to the front and back of a line
 vim.keymap.set('n', ']', '$')
 vim.keymap.set('n', '[', '0')

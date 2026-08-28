@@ -27,3 +27,8 @@ vim.keymap.set("v", "<Up>",   "gk", { buffer = true })
 vim.keymap.set("v", "<Down>", "gj", { buffer = true })
 vim.keymap.set("i", "<Up>",   "<C-o>gk", { buffer = true })
 vim.keymap.set("i", "<Down>", "<C-o>gj", { buffer = true })
+
+-- V selects only the current visual line (default V grabs the whole paragraph
+-- since asciidoc paragraphs are a single file line). Uses character-wise visual.
+-- To delete a visual line: V then d.
+vim.keymap.set("n", "V", "g0vg$", { buffer = true, desc = "Select current visual line" })
